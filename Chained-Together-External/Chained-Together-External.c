@@ -50,7 +50,7 @@ DWORD GetProcessIdByName(const char* processName) {
 // Function to find pattern in memory
 LPVOID FindPattern(HANDLE hProcess, LPVOID startAddress, LPVOID endAddress, unsigned char* pattern, size_t patternSize) {
     const size_t BUFFER_SIZE = 4096;
-    unsigned char buffer[BUFFER_SIZE];
+    unsigned char buffer[4096];
     LPVOID currentAddress = startAddress;
 
     while (currentAddress < endAddress) {
@@ -60,10 +60,10 @@ LPVOID FindPattern(HANDLE hProcess, LPVOID startAddress, LPVOID endAddress, unsi
         }
 
         for (size_t i = 0; i < bytesRead - patternSize; i++) {
-            bool found = true;
+            BOOL found = 1;
             for (size_t j = 0; j < patternSize; j++) {
                 if (buffer[i + j] != pattern[j]) {
-                    found = false;
+                    found = 0;
                     break;
                 }
             }
